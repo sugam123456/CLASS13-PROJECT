@@ -1,58 +1,114 @@
-var jakeImg, pathImg, path, jake, left_boundary, right_boundary,  coin, coinImg, coinscore,song,slider;
+var garden,rabbit,apple,orangeL,redL;
+var gardenImg,rabbitImg,carrotImg,orangeImg,redImg;
+
+
 function preload(){
- 
-  jakeImg=loadAnimation("runner.1", "runner.2");
-  pathImg=loadImage("path.png");
-  coinImg=loadImage("coin.png");
+  gardenImg = loadImage("garden.png");
+  rabbitImg = loadImage("rabbit.png");
+  appleImg = loadImage("apple.png");
+  orangeImg = loadImage("orangeLeaf.png");
+  redImg = loadImage("redImage.png");
 }
 
+
 function setup(){
+  
   createCanvas(400,400);
-  path=createSprite(200,200);
-  path.addImage(pathImg);
-  path.velocityY=5;
-  path.y=path.height/30;
-  jake=createSprite(180,340,50,170);
-  jake.addAnimation("running", jakeImg);
-  coin=createSprite(200,200,80,90);
-  coin.addImage(coinImg);
-  coin.scale=0.3
-  coin=createSprite(100,200,80,90);
-  coin.addImage(coinImg);
-  coin.scale=0.3
-  coin=createSprite(300,200,80,90);
-  coin.addImage(coinImg);
-  coin.scale=0.3;
-  left_boundary=createSprite(0,300,100,600);
-  right_boundary=createSprite(390,300,80,600);
- left_boundary.visible=false;
-right_boundary.visible=false;
+// Moving background
+garden=createSprite(200,200);
+garden.addImage(gardenImg);
+
+
+//creating boy running
+rabbit = createSprite(160,340,20,20);
+rabbit.scale =0.09;
+rabbit.addImage(rabbitImg);
 }
 
 function draw() {
   background(0);
-  textSize(10);
-  text('coin Score', 1,200);
-  textSize(10);
-  text('0', 20,230);
-  path.velocityY=5;
-  jake.x=World.mouseX;
-  if(path.y>400) {
-  path.y=height/2 ;
-  if(jake.isTouching(coin)) {
-  coinscore = coinscore+1;
- }
+  
+  // boy moving on Xaxis with mouse'
+  rabbit.x = World.mouseX;
+  
+  edges= createEdgeSprites();
+  rabbit.collide(edges);
+  
+   drawSprites();
+   
+  
+// var select_sprites = Math(random(1,3));
+
+ var select_sprites = Math.random(random(1,3));
+
+// var select_sprites = Math.round(1,3);
+
+// var select_sprites = Math.round(random(1,3));
+
+  
+  // if (frameCount % 50 == 0) {
+  //if (select_sprites == 1) {
+       createApples();
+   //} else if (select_sprites == 2) {
+       createOrange();
+   // }else {
+  //     createRed();
+  //   }
+  // }
+
+  // if (frameCount % 80 == 0) {
+  // if (select_sprites == 1) {
+  //     createApples();
+  //  } else if (select_sprites == 2) {
+  //     createOrange();
+  //   }
+  // }
+
+  // if (frameCount / 80 == 0) {
+  //   if (select_sprites == 1) {
+  //     createApples();
+  //   } else if (select_sprites == 2) {
+  //     createOrange();
+  //   }else {
+  //     createRed();
+  //   }
+  // }
+
+  //if (frameCount % 80 = 0) {
+  //   if (select_sprites == 1) {
+  //     createApples();
+  //   } else if (select_sprites == 2) {
+  //     createOrange();
+  //   }else {
+  //     createRed();
+  //   }
+  // }
+
+
+
+}
+
+function createApples() {
+apple = createSprite(random(50, 350),40, 10, 10);
+apple.addImage(appleImg);
+apple.scale=0.07;
+apple.velocityY = 3;
+apple.lifetime = 150;
   
 }
-  jake.collide(left_boundary);
-  jake.collide(right_boundary);
-  edges=createEdgeSprites();
-  jake.collide(edges[3]);
-drawSprites();
+
+function createOrange() {
+orangeL = createSprite(random(50, 350),40, 10, 10);
+orangeL.addImage(orangeImg);
+orangeL.scale=0.08;
+orangeL.velocityY = 3;
+orangeL.lifetime = 150;
 }
 
-
-
-
-
-
+function createRed() {
+redL = createSprite(random(50, 350),40, 10, 10);
+redL.addImage(redImg);
+redL.scale=0.06;
+  redL.velocityY = 3;
+  redL.lifetime = 150;
+}
